@@ -5,7 +5,7 @@ module.exports = class New extends React.Component {
     render() {
         return (
             <DefaultLayout title="New">
-                <h1>Create A New Product Page</h1>
+                <h1>Create A New Product</h1>
                 <form action="/products" method="POST"> 
                     <label htmlFor="name">Name:</label>
                     <input type="text" id="name" name="name"/>
