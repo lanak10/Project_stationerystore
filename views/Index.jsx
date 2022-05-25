@@ -15,11 +15,11 @@ class Index extends React.Component {
                             products.map(product => {
                                 return (
                                     <li key={product._id}>
-                                        <p><a href={`/products/${product._id}`}>{product.name}</a></p>
+                                        <p>The <a href={`/products/${product._id}`}>{product.name}</a> costs ${product.price}. There is {product.inventory} of the {product.name} remaining.</p>
+                                        <img src={product.image} alt="" />
                                         <form action={`/products/${product._id}?_method=DELETE`} method="POST">
                                             <input type="submit" value="DELETE" />
                                         </form>
-                                        
                                         <button><a href={`/products/${product._id}/edit`}>{`Edit ${product.name}`}</a></button>
                                     </li>
                                 )

@@ -10,7 +10,6 @@ class Show extends React.Component {
                     <h1>Show Page</h1>
                     <p class="content">{product.name}'s price is {product.price}.</p>
                     <button><a href={'/products'}>Back</a></button>
-                    <hr />
                     <form action={`/products/${product._id}?_method=DELETE`} method="POST">
                         <input type="submit" value="DELETE" />
                     </form>

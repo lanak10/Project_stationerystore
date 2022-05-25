@@ -15,7 +15,7 @@ mongoose.connection.once('open', () => console.log('Connected to Mongo'))
 
 // Setup Engine
 app.set('view engine', 'jsx');
-app.engine('jsx', require('express-react-views').createEngine())
+app.engine('jsx', require('express-react-views').createEngine());
 
 // Middleware
 app.use(method('_method'))
@@ -29,7 +29,7 @@ app.use(express.json())
 // Index
 app.get('/products', (req, res) => {
     Product.find({}, (err, allProducts) => {
-        res.render('Index', { products: allProducts })
+        res.render('Index', {products: allProducts})
     })
 })
 
@@ -59,6 +59,7 @@ app.put('/products/:id', (req, res) => {
         }
     })
 })
+
 // Create
 app.post('/products', (req, res) => {
     Product.create(req.body, (err, createdProduct) => {
@@ -69,10 +70,10 @@ app.post('/products', (req, res) => {
 })
 
 // Edit
-app.get('/fruits/:id/edit', (req, res) => {
+app.get('/products/:id/edit', (req, res) => {
     Product.findById(req.params.id, (err, foundProduct) => {
         if (!err) {
-            res.render('Edit', {fruit: foundProduct})
+            res.render('Edit', {product: foundProduct})
         } else {
             res.status(400).json(err)
         }
