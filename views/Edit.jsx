@@ -6,7 +6,7 @@ module.exports = class Edit extends React.Component {
     render() {
         const product = this.props.product
         return (
-            <DefaultLayout title="Edit">
+            <DefaultLayout>
                 <h1>{product.name} Edit Page</h1>
                 <form action={`/products/${product._id}?_method=PUT`} method="POST">
                     <label htmlFor="name">Name:</label>

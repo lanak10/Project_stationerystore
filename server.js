@@ -63,8 +63,6 @@ app.put('/products/:id', (req, res) => {
 // Create
 app.post('/products', (req, res) => {
     Product.create(req.body, (err, createdProduct) => {
-        // console.log(createdFruit)
-        // res.send(createdFruit)
         res.redirect('/products')
     })
 })
