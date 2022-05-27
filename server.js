@@ -5,6 +5,7 @@ const method = require('method-override')
 const app = express()
 const PORT = 3000
 const Product = require('./models/products')
+const res = require('express/lib/response')
 
 // ====== Connection to Database ======
 mongoose.connect(process.env.MONGO_URI, {
@@ -29,7 +30,7 @@ app.use(express.json())
 // Index
 app.get('/products', (req, res) => {
     Product.find({}, (err, allProducts) => {
-        res.render('Index', {products: allProducts})
+        res.render('Index', { products: allProducts })
     })
 })
 
@@ -41,7 +42,7 @@ app.get('/products/new', (req, res) => {
 // Delete
 app.delete('/products/:id', (req, res) => {
     Product.findByIdAndDelete(req.params.id, (err) => {
-        if (!err){
+        if (!err) {
             res.status(200).redirect('/products')
         } else {
             res.status(400).json(err)
@@ -51,12 +52,23 @@ app.delete('/products/:id', (req, res) => {
 
 // Update
 app.put('/products/:id', (req, res) => {
-    Product.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedProduct) => {
+    Product.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedProduct) => {
         if (!err) {
-            res.status(200).redirect('/products')
+            res.status(200).redirect(`/products/${req.params.id}`)
         } else {
             res.status(400).json(err)
         }
+    })
+})
+
+app.put('/products/:id/buy', async (req, res) => {
+    const foundProduct = await Product.findById(req.params.id)
+    // console.log(foundProduct.inventory)
+    Product.findByIdAndUpdate(req.params.id, {
+        inventory: foundProduct.inventory - 1
+    }, { new: true }, (err, updatedProduct) => {
+
+        res.redirect(`/products/${req.params.id}`)
     })
 })
 
@@ -71,7 +83,7 @@ app.post('/products', (req, res) => {
 app.get('/products/:id/edit', (req, res) => {
     Product.findById(req.params.id, (err, foundProduct) => {
         if (!err) {
-            res.render('Edit', {product: foundProduct})
+            res.render('Edit', { product: foundProduct })
         } else {
             res.status(400).json(err)
         }
@@ -81,8 +93,8 @@ app.get('/products/:id/edit', (req, res) => {
 // Show
 app.get('/products/:id', (req, res) => {
     Product.findById(req.params.id, (err, foundProduct) => {
-    res.render('Show', {product: foundProduct})
-})
+        res.render('Show', { product: foundProduct })
+    })
 })
 
 app.listen(PORT, () => console.log(`Listening to port ${PORT}`))
