@@ -5,7 +5,7 @@ class Index extends React.Component {
     render() {
         const { products } = this.props;
         return (
-            <DefaultLayout title="Index Stationery Dreams">
+            <DefaultLayout title="Stationery Dreams">
                 <div>
                     <nav>
                         <a href="/products/new">Add a New Product</a>

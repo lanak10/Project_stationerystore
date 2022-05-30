@@ -5,7 +5,9 @@ const method = require('method-override')
 const app = express()
 const PORT = 3000
 const Product = require('./models/products')
-const res = require('express/lib/response')
+const createApplication = require('express/lib/express')
+const Cart = require('./models/cart')
+// const res = require('express/lib/response')
 
 // ====== Connection to Database ======
 mongoose.connect(process.env.MONGO_URI, {
@@ -31,6 +33,13 @@ app.use(express.json())
 app.get('/products', (req, res) => {
     Product.find({}, (err, allProducts) => {
         res.render('Index', { products: allProducts })
+    })
+})
+
+// Index route for Shopping Cart
+app.get('/products/:id/cart', (req, res) => {
+    Cart.find({}, (err, cartItems) => {
+        res.render('ShoppingCart', { products: cartItems })
     })
 })
 
@@ -61,6 +70,7 @@ app.put('/products/:id', (req, res) => {
     })
 })
 
+// Updates Show Page with product's inventory reducing by 1 functionality
 app.put('/products/:id/buy', async (req, res) => {
     const foundProduct = await Product.findById(req.params.id)
     // console.log(foundProduct.inventory)
@@ -72,10 +82,28 @@ app.put('/products/:id/buy', async (req, res) => {
     })
 })
 
+// Update route for shopping cart
+app.put('/products/:id/cart', async (req, res) => {
+    const cart = await Cart.findById('')
+    const item = await Product.findById(req.body.products)
+    cart.products.push(item)
+    Cart.findByIdAndUpdate('',
+        { products: cart.products }, { new: true }, (err, updatedCart) => {
+            res.redirect(`/products/''/cart`)
+        })
+})
+
 // Create
 app.post('/products', (req, res) => {
     Product.create(req.body, (err, createdProduct) => {
         res.redirect('/products')
+    })
+})
+
+// Create route for shopping cart
+app.post('/products/:id/cart', (req, res) => {
+    Cart.create(req.body, (err, addtoCart) => {
+        res.redirect('/products/:id/cart')
     })
 })
 

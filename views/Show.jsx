@@ -7,7 +7,7 @@ class Show extends React.Component {
         return (
             <DefaultLayout>
                 <div>
-                    <h1>{product.name} Show Page</h1>
+                    <h1>{product.name}</h1>
                     <img class="image" src={product.image} alt="" />
                     <h3>{product.name}</h3>
                     <h4>${product.price}</h4>
@@ -19,6 +19,11 @@ class Show extends React.Component {
                     {/* <button class={product.inventory > 0 ? "buyButton" : "noBuyButton"}><a href={`/products/${product._id}/buy`}>ADD TO CART</a></button> */}
                     <form action={`/products/${product._id}/buy?_method=PUT`} method="POST">
                         <input class={product.inventory > 0 ? "buyButton" : "noBuyButton"} type="submit" value="ADD TO CART" />
+                    </form>
+
+                    {/* Incomplete Code to put products in Shopping Cart */}
+                    <form action='/products/:id/cart?_method=PUT' method="POST">
+                        <input type="text" id="products" name="products" defaultValue={product._id} />
                     </form>
 
                     <br></br>

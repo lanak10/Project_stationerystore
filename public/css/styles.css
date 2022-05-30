@@ -20,10 +20,10 @@ body {
     height: 50px;
     cursor: pointer;
     border-radius: 10px;
+    
 }
 
 .noBuyButton {
-    /* cursor: not-allowed;
-    color: #555; */
+    /* cursor: not-allowed; */
     display: none;
 }
