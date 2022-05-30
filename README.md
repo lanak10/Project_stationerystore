@@ -1,7 +1,10 @@
-Stationery Dreams Store README
+#Stationery Dreams Store README
+
+# Description
+Stationery Dreams is an online store featuring Asian stationery items galore! Every person's dreams items will be featured here. 
 
 
-### photos
+## Routes for products
    VERB 		 | 		  PATH 		 |  	 DESCRIPTION
 ------------ | ------------- | -------------------
 GET | /api/v1/products/ | index of products |
